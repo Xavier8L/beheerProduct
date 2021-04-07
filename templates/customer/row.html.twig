@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% block content_title %}
+
+    {% endblock %}
+    <div class="container">
+        {{ form_start(rowForm) }}
+        <div>Product Name:                   {{ product.name }}</div>
+
+        {{ form_widget(rowForm) }}
+        <button type="submit" class="btn btn-outline-info" id="create">add Cart</button>
+        {{ form_end(rowForm) }}
+
+    </div>
+
+{% endblock %}

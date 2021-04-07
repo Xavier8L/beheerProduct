@@ -1,0 +1,44 @@
+{% extends 'visitor/home.html.twig' %}
+{% block title %}discount code{% endblock %}
+
+{% block body %}
+    <div class="container", style="padding: 1rem;
+                        border: 3px solid ;
+                        background: #23272b;
+                        color: whitesmoke;
+                        border-radius: 1em; ">
+        {{ form_start(discountForm) }}
+        <div class="container">
+            {{ form_row(discountForm.discount,{'id':"discount"}) }}
+        <script>
+            let discount = document.getElementById('discount')
+            discount.addEventListener("change", function()
+            {
+                let option = discount.options[discount.selectedIndex].text;
+                if(option === "Yes")
+                {
+                    let y=document.getElementById('y');
+                    y.required=true;
+                    let x=document.getElementById('code');
+                    x.style.display = "block";
+                }else
+                {
+                    let x=document.getElementById('code');
+                    let y=document.getElementById('y');
+                    y.required=false;
+                    y.value=null;
+                    x.style.display = "none";
+                }
+            })
+        </script>
+
+            <div id="code">
+                {{ form_row(discountForm.code,{'id':'y'}) }}
+            </div>
+            <button class="btn btn-danger" type="submit">go to pay</button>
+            {{ form_end(discountForm) }}
+
+        </div>
+    </div>
+
+{% endblock %}

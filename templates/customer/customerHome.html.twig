@@ -1,0 +1,70 @@
+{% extends 'visitor/home.html.twig' %}
+
+{% block title %}Hello {{ app.user.username }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        {% endblock %}
+
+
+{% block body %}
+    <br />
+    <div class="container ">
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active bg-success" ></li>
+            <li data-target="#demo" data-slide-to="1" class="bg-success"></li>
+            <li data-target="#demo" data-slide-to="2" class="bg-success"></li>
+            <li data-target="#demo" data-slide-to="3" class="bg-success"></li>
+        </ul>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <a href="{{ path('category',{'categoryId':6}) }}">
+                <img src="{{ asset("img/gameComputer.jpg") }}" alt="game computer" width="1300px" height="600px">
+                </a>
+                <div class="carousel-caption text-warning">
+                    <h3>game computer</h3>
+                </div>
+            </div>
+            <div class="carousel-item ">
+                <a href="{{ path('category',{'categoryId':4}) }}">
+                <img src="{{ asset("img/gameLaptop.png") }}" alt="game laptop" width="1300px" height="600px">
+                </a>
+                <div class="carousel-caption text-warning">
+                    <h3>game laptop</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <a href="{{ path('category',{'categoryId':5}) }}">
+                <img src="{{ asset("img/werkComputer.jpg") }}" alt="work computer" width="1300px" height="600px">
+                </a>
+                <div class="carousel-caption text-warning">
+                    <h3>work computer</h3>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <a href="{{ path('category',{'categoryId':3}) }}">
+                <img src="{{ asset("img/werkLaptop.jpg") }}" alt="work laptop" width="1300px" height="600px">
+                </a>
+                <div class="carousel-caption text-warning">
+                    <h3>work laptop</h3>
+                </div>
+            </div>
+        </div>
+
+        <a class="carousel-control-prev" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+
+        </div>
+
+    </div>
+{% endblock %}

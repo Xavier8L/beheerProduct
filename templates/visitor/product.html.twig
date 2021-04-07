@@ -1,0 +1,31 @@
+{% extends 'visitor/home.html.twig' %}
+
+{% block body %}
+
+    <div class="container" >
+    {% if products == null %}
+    <p> key word is fout</p>
+    {% else %}
+        <div class="d-flex flex-wrap text-white">
+            {% for product in products %}
+                <div class="p-1 bg-secondary" style="
+                width: 350px; height: 350px; padding: 1rem;
+                        border: 3px solid ;
+                        background: black;
+                        color: whitesmoke;
+                        border-radius: 1em;">
+                    <div class="text-center" style="padding-top: 15px">
+                        <img src="{{ asset('img/'~product.id~'.jpg') }}" width="300px" height="200px">
+                            Name: {{ product.name }}<br />
+                            Price: €{{ product.price }}<br />
+                            Description: {{ product.description }}<br />
+                        {% if is_granted('ROLE_CUSTOMER') %}
+                        <a href="{{ path('addcart',{'product_id':product.id}) }}" class="btn btn-danger">add to cart</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'visitor/home.html.twig' %}
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-info text-center">Bought history</h1>
+
+    <br />
+    <div class="container">
+        <div class="orderList">
+        {% for order in orders %}
+            <h3 class="text-info text-center">History {{ order.id }}</h3>
+        <table class="table table-bordered">
+            <thead class="text-center thead-dark text-info">
+            <tr>
+
+                <th>Product name</th>
+
+                <th>Price</th>
+
+                <th>Amount</th>
+
+                <th>Discount</th>
+
+                <th>Nieuw price</th>
+
+                <th>Total Price</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for row in order.rows2 %}
+
+
+                <tr class="text-center">
+
+                    <td>
+                        {{ row.product.name }}
+                    </td>
+
+                    <td>
+                        €{{ row.product.price }}
+                    </td>
+
+                    <td>
+                        {{ row.amount }}
+                    </td>
+
+                    <td>
+                        {% if order.discountCode != null %}
+                            {% for dp in order.discountCode.discountProducts %}
+                                {% if dp.product.id == row.product.id %}
+                                    {{ order.discountCode.percentage }}%
+                                {% else %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            No discount
+                            {% endif %}
+                    </td>
+
+                    <td>
+                        {% if order.discountCode != null %}
+                            {% for dp in order.discountCode.discountProducts %}
+                                {% if dp.product.id == row.product.id %}
+                                €{{ row.product.price * (1-order.discountCode.percentage/100) }}
+                                {% else %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-danger">/</div>
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        €{{ row.product.price * row.amount }}
+                        {% if order.discountCode != null %}
+                            {% for dp in order.discountCode.discountProducts %}
+                                {% if dp.product.id == row.product.id %}
+                                    <div class="text-danger">-> €{{  row.product.price * (1-order.discountCode.percentage/100) * row.amount }}</div>
+                                    {% else %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+
+            <tfoot>
+            <tr class="text-center">
+
+                <td colspan="5">
+                    <strong> Total:</strong>
+                </td>
+
+                <td >
+                    €{{ order.total }}
+                </td>
+
+            </tr>
+            </tfoot>
+
+        </table>
+
+        {% endfor %}
+        </div>
+        <a href="{{ path("customerHome") }}" class="btn btn-primary">go Home</a>
+    </div>
+
+{% endblock %}

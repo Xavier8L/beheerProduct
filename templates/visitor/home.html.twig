@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Visitor!{% endblock %}
+
+{% block nav %}
+
+
+    <div class="text-center" style="">
+        <img src="{{ asset('img/ict.jpg') }} "  style="width: 100%; height: 300px" alt="ict.img">
+    </div>
+
+    <nav class="navbar navbar-expand-lg bg-light navbar-dark">
+        {% if is_granted('ROLE_CUSTOMER') %}
+            <a class="navbar-brand " href="{{ path('customerHome') }}"><h1 class="text-warning">Computer Shop</h1></a>
+        {% elseif is_granted('ROLE_ADMIN') %}
+            <a class="navbar-brand " href="{{ path('adminHome') }}"><h1 class="text-warning">Computer Shop</h1></a>
+        {% else %}
+            <a class="navbar-brand " href="{{ path('home') }}"><h1 class="text-warning">Computer Shop</h1></a>
+        {% endif %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+            {% if app.user == null %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("app_signup") }}"> <button class="btn btn-outline-primary float-right" type="submit" >Sign Up</button></a>
+                    </li>
+
+                </ul>
+                <ul class="navbar-nav ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("app_login") }}"> <button class="btn btn-outline-primary float-right" type="submit">Log in</button></a>
+                    </li>
+
+                </ul>
+            {% else %}
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path("app_logout") }}"> <button class="btn btn-outline-primary float-right" type="submit">Log out</button></a>
+                    </li>
+                </ul>
+            {% endif %}
+    </nav>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <div class="dropdown ">
+                        <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown">
+                            Chose one categories
+                        </button>
+                        <div class="dropdown-menu bg-dark">
+                            <a class="dropdown-item text-info" href="{{ path('product') }}">All product</a>
+                            <a class="dropdown-item text-info" href="{{ path('parent',{'pId':2}) }}">Computer</a>
+                            <a class="dropdown-item text-info" href="{{ path('parent',{'pId':1}) }}">Laptop</a>
+                        </div>
+                    </div>
+                </li>
+                {% if is_granted('ROLE_CUSTOMER') %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('orderList') }}">Bought history</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('cart') }}">Cart</a>
+                    </li>
+                {% elseif is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">TIP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">TIP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">TIP</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">TIP</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="btn btn-primary" href="{{ path('search') }}">Search</a>
+                    </li>
+                </ul>
+        </div>
+    </nav>
+{% endblock %}
+{% block body %}
+
+{% endblock %}

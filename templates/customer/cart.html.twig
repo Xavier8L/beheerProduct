@@ -1,0 +1,157 @@
+{% extends 'visitor/home.html.twig' %}
+{% block title %}product{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-info text-center">Cart</h1>
+
+    <br />
+    <div class="container">
+        {% if carts == 0 %}
+            <h1 class="text-center text-warning">The cart is empty</h1>
+        {% else %}
+            <table class="table table-bordered">
+
+                <thead class="text-center thead-dark text-info">
+                <tr>
+
+                    <th>Product name</th>
+
+                    <th>Price</th>
+
+                    <th>Amount</th>
+
+                    {% if app.session.get('isCheck') == false %}
+                    <th>Active</th>
+                    {% endif %}
+
+                    {% if app.session.get('isCheck') == true %}
+                    <th>Discount</th>
+
+                    <th>New Price</th>
+                    {% endif %}
+
+                    <th>Total Price</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                {% set x = 0 %}
+                {% set total = 0 %}
+                {% set oldTotal = 0 %}
+                {% for cart in carts %}
+
+
+                    <tr class="text-center">
+
+                        <td>
+                            {{ cart.name }}
+                        </td>
+
+                        <td>
+                            €{{ cart.price }}
+                        </td>
+
+                        <td>
+                            {{ cart.amount }}
+                        </td>
+
+                        {% if app.session.get('isCheck') == false %}
+                        <td>
+                            <a href="{{ path('addcart',{'product_id':cart.id}) }}" class="fas fa-plus text-success"></a>
+                            <a href="{{ path('deletecart',{'product_id':cart.id}) }}" class="fas fa-minus text-danger"></a>
+                        </td>
+                        {% endif %}
+
+                        {% if app.session.get('isCheck') == true %}
+                        <td>
+                            {% if cart.percentage == null %}
+                            No
+                            {% else %}
+                                {{ cart.percentage }}%
+                                {% endif %}
+                        </td>
+
+
+                        <td> {% if cart.percentage == null %}
+                                    <div class="text-danger">/</div>
+                            {% else %}
+                                € {{ cart.price*(1-cart.percentage/100) }}
+                                {% set x = x + 1 %}
+                            {% endif %}
+                        </td>
+                        {% endif %}
+
+
+                        <td>
+                            {% if app.session.get('isCheck') == true %}
+                                {% if cart.percentage == null %}
+                                     {% set prices = cart.amount * cart.price %}
+                                {% else %}
+                                    {% set prices = cart.amount *cart.price*(1-cart.percentage/100) %}
+                                {% endif %}
+                                {% else %}
+                                    {% set prices = cart.amount * cart.price %}
+                            {% endif %}
+                            € {{ prices }}
+                        </td>
+                        {% set total = total + prices %}
+                        {% set oldTotal = oldTotal + cart.amount * cart.price %}
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+                <tfoot>
+                <tr class="text-center">
+                    {% if app.session.get('isCheck') == true %}
+                    <td colspan="2">
+                        <strong> Total:</strong>
+                    </td>
+                        <td class="text-info">
+                            €{{ oldTotal }}
+                        </td>
+
+                        <td colspan="2">
+                            <strong> With discount:</strong>
+                        </td>
+
+                        <td class="text-danger">
+                            €{{ total }}
+                        </td>
+                    {% else %}
+                        <td colspan="4">
+                            <strong> Total:</strong>
+                        </td>
+                    <td >
+                        €{{ total }}
+                    </td>
+                    {% endif %}
+
+
+                </tr>
+                </tfoot>
+
+            </table>
+
+                {% endif %}
+
+            {% if app.session.get('isCheck') == true %}
+                <a href="{{ path("cart") }}" class="btn btn-primary">go back</a>
+                {% if x == 0 %}
+                    <a href="{{ path("order",{'code':null}) }}" class="btn btn-danger float-right"> go pay</a>
+                {% else %}
+                    <a href="{{ path("order",{'code':code}) }}" class="btn btn-danger float-right"> go pay</a>
+                    {% endif %}
+            {% else %}
+                <a href="{{ path("customerHome") }}" class="btn btn-primary">go back</a>
+                {% if carts != 0 %}
+                <a href="{{ path("code") }}" class="fad fa-shopping-bag text-warning"></a>
+                <a href="{{ path('empty_cart') }}" class="fas fa-trash-alt text-danger"></a>
+                {% endif %}
+            {% endif %}
+    </div>
+
+{% endblock %}

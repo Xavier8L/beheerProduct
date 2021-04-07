@@ -8,12 +8,35 @@
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
         {% endblock %}
-
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-grid.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/bootstrap-reboot.css') }}">
+        <script src="{{ asset('js/bootstrap.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.bundle.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}
     </head>
     <body>
+    {% block nav %}
+    {% endblock %}
+    <br />
+    {% for message in app.flashes('success') %}
+        <dis class="alert alert-success message">
+            {{ message }}
+        </dis>
+
+    {% endfor %}
+    {% for message in app.flashes('dangers') %}
+        <dis class="alert alert-danger message">
+            {{ message }}
+        </dis>
+
+    {% endfor %}
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -1,0 +1,14 @@
+{% extends 'visitor/home.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block body %}
+    <br/>
+    <h1 class="text-center text-info">Tip your keywords</h1>
+    <div class="container">
+        {{ form_start(SearchForm) }}
+        {{ form_row(SearchForm.Search) }}
+        <button class="btn btn-primary" type="submit">Search</button>
+        {{ form_end(SearchForm) }}
+    </div>
+{% endblock %}

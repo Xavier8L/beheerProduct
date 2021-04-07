@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block body %}
+    <br/>
+    <h1 class="text-center text-info">Sign in your account</h1>
+    <div class="container">
+        {{ form_start(CustomerForm) }}
+        {{ form_widget(CustomerForm) }}
+        <button class="btn btn-primary" type="submit">sign Up</button>
+        {{ form_end(CustomerForm) }}
+    </div>
+{% endblock %}
