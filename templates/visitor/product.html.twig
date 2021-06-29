@@ -15,6 +15,7 @@
                         color: whitesmoke;
                         border-radius: 1em;">
                     <div class="text-center" style="padding-top: 15px">
+                        {{ dump(product.id) }}
                         <img src="{{ asset('img/'~product.id~'.jpg') }}" width="300px" height="200px">
                             Name: {{ product.name }}<br />
                             Price: €{{ product.price }}<br />
